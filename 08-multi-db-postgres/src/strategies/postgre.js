@@ -47,6 +47,11 @@ class Postgres {
         return dataValues
     }
 
+    read(item = {}) {
+        return this._herois.findAll({ where: item, raw: true })
+        
+    }
+
     async connect() {
         this._driver = new Sequelize(
             'MeusHerois',
