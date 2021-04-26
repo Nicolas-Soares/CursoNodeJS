@@ -49,11 +49,15 @@ class Postgres {
 
     read(item = {}) {
         return this._herois.findAll({ where: item, raw: true })
-        
     }
 
     async update(idItemAtualizar, item) {
         return await this._herois.update(item, { where: {id : idItemAtualizar} })
+    }
+
+    async delete(id) {
+        const query = id ? { id } : {}
+        return this._herois.destroy({ where: query })
     }
 
     async connect() {

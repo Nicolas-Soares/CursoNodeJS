@@ -16,6 +16,7 @@ describe('Postgres Strategy', () => {
     //this.timeout(Infinity)
     before(async () => {
         await context.connect()
+        await context.delete()
         await context.create(MOCK_HEROI_ATUALIZAR)
     })
     it('PostgreSQL Connection', async () => {
@@ -47,5 +48,11 @@ describe('Postgres Strategy', () => {
         assert.deepEqual(result, 1)
         assert.deepEqual(itemAtualizado.nome, novoItem.nome)
         assert.deepEqual(itemAtualizado.poder, novoItem.poder)
+    })
+
+    it('Remover por ID', async () => {
+        const [item] = await context.read({})
+        const result = await context.delete(item.id)
+        assert.deepEqual(result, 1)
     })
 })
