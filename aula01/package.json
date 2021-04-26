@@ -1,0 +1,12 @@
+{
+  "name": "aula01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "aula01.js",
+  "scripts": {
+    "exe": "node aula01.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicolas Soares",
+  "license": "ISC"
+}
