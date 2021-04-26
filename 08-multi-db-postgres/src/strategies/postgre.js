@@ -52,6 +52,10 @@ class Postgres {
         
     }
 
+    async update(idItemAtualizar, item) {
+        return await this._herois.update(item, { where: {id : idItemAtualizar} })
+    }
+
     async connect() {
         this._driver = new Sequelize(
             'MeusHerois',
