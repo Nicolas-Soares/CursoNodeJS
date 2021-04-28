@@ -24,7 +24,7 @@ class MongoDB {
     }
 
     defineModel() {
-        heroiSchema = new Mongoose.Schema({
+        const heroiSchema = new Mongoose.Schema({
             nome: {
                 type: String,
                 required: true
@@ -51,16 +51,25 @@ class MongoDB {
         const connection = Mongoose.connection
         
         this._driver = connection
-
+        
         connection.once('open', () => console.log('Database rodando!'))
+        this.defineModel()
     }
 
-    async create(item) {
-        const resultCadastrar = await model.create({
-            nome: 'Batman',
-            poder: 'Dinheiro'
-        })
-        console.log('resultado: ', resultCadastrar)
+    create(item) {
+        return this._herois.create(item)
+    }
+
+    read(item, skip=0, limit=10) {
+        return this._herois.find(item).skip(skip).limit(limit)
+    }
+
+    update(id, itemParaModificar) {
+        return this._herois.updateOne({ _id: id }, { $set: itemParaModificar })
+    }
+
+    delete(id) {
+        return this._herois.deleteOne({ _id: id })
     }
 }
 

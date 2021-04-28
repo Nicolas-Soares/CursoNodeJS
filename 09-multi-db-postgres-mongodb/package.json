@@ -13,7 +13,7 @@
     "mocha": "^8.3.2"
   },
   "scripts": {
-    "test": "mocha src/tests/mongodbStrategy.test.js"
+    "test": "mocha src/tests/**.test.js"
   },
   "keywords": [],
   "author": "",
