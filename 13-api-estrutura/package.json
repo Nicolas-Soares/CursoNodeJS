@@ -1,0 +1,22 @@
+{
+  "name": "08-multi-db-postgres",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "hapi": "^18.1.0",
+    "mongoose": "^5.12.5",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "mocha": "^8.3.2"
+  },
+  "scripts": {
+    "test": "mocha src/tests/**.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
