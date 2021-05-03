@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "hapi": "^18.1.0",
+    "joi": "^14.1.0",
     "mongoose": "^5.12.5",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",

@@ -15,7 +15,6 @@ const MOCK_HEROI_ATUALIZAR = {
 let context = {}
 
 describe('Postgres Strategy', () => {
-    //this.timeout(Infinity)
     before(async () => {
         const connection = await Postgres.connect()
         const model = await Postgres.defineModel(connection, HeroiSchema)
@@ -24,6 +23,7 @@ describe('Postgres Strategy', () => {
         await context.delete()
         await context.create(MOCK_HEROI_ATUALIZAR)
     })
+    
     it('PostgreSQL Connection', async () => {
         const result = await context.isConnected()
         assert.equal(result, true)
@@ -60,4 +60,4 @@ describe('Postgres Strategy', () => {
         const result = await context.delete(item.id)
         assert.deepEqual(result, 1)
     })
-})
+}).timeout(Infinity)
