@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "boom": "^7.3.0",
     "hapi": "^18.1.0",
     "joi": "^14.1.0",
     "mongoose": "^5.12.5",

@@ -1,5 +1,6 @@
 const BaseRoute = require('./base/baseRoute')
 const Joi = require('joi')
+const Boom = require('boom')
 const { required } = require('joi')
 
 const failAction = (request, headers, erro) => {
@@ -43,7 +44,7 @@ class HeroRoutes extends BaseRoute {
                     return this.db.read(nome ? query : {}, skip, limit)
                 } catch (error) {
                     console.log('Deu ruim: ', error)
-                    return 'Erro interno no servidor'
+                    return Boom.internal()
                 }
 
             }
@@ -76,7 +77,7 @@ class HeroRoutes extends BaseRoute {
                     }
                 } catch (error) {
                     console.error('Erro: ', error)
-                    return 'Erro interno no sistema!'
+                    return Boom.internal()
                 }
             }
         }
@@ -105,16 +106,44 @@ class HeroRoutes extends BaseRoute {
                     const dados = JSON.parse(dadosString)
                     const result = await this.db.update(id, dados)
 
-                    if (result.nModified !== 1) return {
-                        message: 'Nao foi possivel atualizar!'
-                    }
+                    if (result.nModified !== 1) return Boom.preconditionFailed('ID nao encontrado no banco!')
 
                     return {
                         message: 'Heroi atualizado com sucesso!'
                     }
                 } catch (error) {
                     console.error('Erro: ', error)
-                    return 'Erro interno no sistema!'
+                    return Boom.internal()
+                }
+            }
+        }
+    }
+
+    delete() {
+        return {
+            path: '/herois/{id}',
+            method: 'DELETE',
+            config: {
+                validate: {
+                    failAction,
+                    params: {
+                        id: Joi.string().required()
+                    }
+                }
+            },
+            handler: async (request) => {
+                try {
+                    const {id} = request.params
+                    const result = await this.db.delete(id)
+
+                    if (result.n !== 1) return Boom.preconditionFailed('ID nao encontrado no banco!')
+                        
+                    return {
+                        message: 'Heroi removido com sucesso!'
+                    }
+                } catch (error) {
+                    console.error('Erro: ', error)
+                    return Boom.internal()
                 }
             }
         }
