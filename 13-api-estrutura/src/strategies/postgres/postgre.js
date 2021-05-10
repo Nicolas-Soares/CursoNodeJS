@@ -34,8 +34,10 @@ class Postgres {
         return this._schema.findAll({ where: item, raw: true })
     }
 
-    async update(idItemAtualizar, item) {
-        return await this._schema.update(item, { where: {id : idItemAtualizar} })
+    async update(idItemAtualizar, item, upsert = false) {
+        const fn = upsert ? 'upsert' : 'update'
+
+        return await this._schema[fn](item, { where: {id : idItemAtualizar} })
     }
 
     async delete(id) {

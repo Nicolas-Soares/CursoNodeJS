@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "boom": "^7.3.0",
     "hapi": "^18.1.0",
     "hapi-auth-jwt2": "^10.2.0",
