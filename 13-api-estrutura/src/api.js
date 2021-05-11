@@ -1,3 +1,16 @@
+const { config } = require('dotenv')
+const { join } = require('path')
+const { ok } = require('assert')
+
+const env = process.env.NODE_ENV || 'dev'
+ok(env === 'prod' || env === 'dev', 'A env é invalida, ou dev ou prod')
+
+const configPath = join(__dirname, '../config', `.env.${env}`)
+
+config({
+    path: configPath
+})
+
 const Hapi = require('hapi')
 const MongoDB = require('./strategies/mongodb/mongodb')
 const Postgres = require('./strategies/postgres/postgre')
@@ -7,7 +20,7 @@ const HeroiSchema = require('./strategies/mongodb/schemas/heroisSchema')
 const UserSchema = require('./strategies/postgres/schemas/userSchema')
 const { methods } = require('./routes/heroRoutes')
 
-const JWT_SECRET = 'MY_SECRET_123'
+const JWT_SECRET = process.env.JWT_KEY
 
 const HapiJwt = require('hapi-auth-jwt2')
 const HSwagger = require('hapi-swagger')
@@ -16,18 +29,18 @@ const Vision = require('vision')
 const { version } = require('joi')
 
 const app = new Hapi.Server({
-    port: 5000
+    port: process.env.PORT
 })
 
 function mapRoutes(instance, methods) {
     return methods.map(method => instance[method]())
 }
 
-async function main(){
+async function main() {
     try {
         const connection = MongoDB.connect()
         const context = new MongoDB(connection, HeroiSchema)
-        
+
         const connectionPostgres = await Postgres.connect()
         const model = await Postgres.defineModel(connectionPostgres, UserSchema)
         const contextPostgres = new Postgres(connectionPostgres, model)
