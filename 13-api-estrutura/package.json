@@ -23,7 +23,8 @@
     "mocha": "^8.3.2"
   },
   "scripts": {
-    "test": "mocha src/tests/**.test.js"
+    "test": "mocha src/tests/**.test.js",
+    "prod": "cross-env NODE_ENV=prod npm test"
   },
   "keywords": [],
   "author": "",
