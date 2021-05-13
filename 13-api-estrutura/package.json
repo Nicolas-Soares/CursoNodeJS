@@ -24,7 +24,8 @@
   },
   "scripts": {
     "test": "mocha src/tests/**.test.js",
-    "prod": "cross-env NODE_ENV=prod npm test"
+    "test:prod": "cross-env NODE_ENV=prod npm test",
+    "prod": "cross-env NODE_ENV=prod node api.js"
   },
   "keywords": [],
   "author": "",
